@@ -7,12 +7,6 @@ from scrapy.linkextractors import LinkExtractor
 class BnuObituaryScraperSpider(CrawlSpider):
     name = 'bnu-obituary-scraper'
 
-    custom_settings = {
-        'BOT_NAME': 'bnu_obituary_scraper',
-        'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/65.0',
-        'ROBOTSTXT_OBEY': False,
-    }
-
     allowed_domains = ['arvorespelavida.org.br']
     start_urls = ['https://www.arvorespelavida.org.br/']
 
@@ -20,6 +14,11 @@ class BnuObituaryScraperSpider(CrawlSpider):
         Rule(
             LinkExtractor(
                 restrict_xpaths=('//div/ul[@class="menu"]/li/a[re:test(@href, "obituario")]')
+            )
+        ),
+        Rule(
+            LinkExtractor(
+                restrict_css=('.paginacao a')
             )
         ),
         Rule(
